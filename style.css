@@ -431,7 +431,7 @@ body {
 .glow-products { background: #f59e0b; }
 .glow-discord { background: #5865f2; }
 .glow-facebook { background: #1877f2; }
-.glow-github { background: #94a3b8; }
+.glow-lattice { background: #0284c7; }
 .glow-zalo { background: #0068ff; }
 
 /* Bento Card Top Row (Icon Box + Badge) */
@@ -482,10 +482,10 @@ body {
 .discord-svg { width: 26px; height: 26px; }
 
 .fb-icon-box { background: #1877f2; }
-.card-facebook:hover { border-color: rgba(24, 119, 242, 0.6); }
+.card-facebook:hover { border-color: rgba(244, 114, 182, 0.6); }
 
-.github-icon-box { background: #24292e; }
-.card-github:hover { border-color: rgba(255, 255, 255, 0.4); }
+.lattice-icon-box { background: linear-gradient(135deg, #032b49, #0284c7); padding: 5px; }
+.card-lattice:hover { border-color: rgba(56, 189, 248, 0.6); }
 
 .zalo-icon-box { background: #0068ff; }
 .card-zalo:hover { border-color: rgba(0, 104, 255, 0.6); }
@@ -503,7 +503,7 @@ body {
 .pill-gold { background: rgba(245, 158, 11, 0.16); color: #fde047; border: 1px solid rgba(245, 158, 11, 0.35); }
 .pill-discord { background: rgba(88, 101, 242, 0.2); color: #a5b4fc; border: 1px solid rgba(88, 101, 242, 0.4); }
 .pill-blue { background: rgba(24, 119, 242, 0.2); color: #93c5fd; border: 1px solid rgba(24, 119, 242, 0.4); }
-.pill-dark { background: rgba(255, 255, 255, 0.08); color: #e2e8f0; border: 1px solid rgba(255, 255, 255, 0.2); }
+.pill-lattice { background: rgba(2, 132, 199, 0.2); color: #7dd3fc; border: 1px solid rgba(2, 132, 199, 0.4); }
 .pill-zalo { background: rgba(0, 104, 255, 0.2); color: #7dd3fc; border: 1px solid rgba(0, 104, 255, 0.4); }
 
 /* Bento Card Body */

@@ -36,14 +36,14 @@ function initHoverEffects() {
     });
   }
 
-  const ghLink = document.getElementById('linkGithub');
-  const ghTitle = document.getElementById('ghTitle');
-  if (ghLink && ghTitle) {
-    ghLink.addEventListener('mouseenter', () => {
-      ghTitle.textContent = 'GitHub: phanvanhuy184';
+  const latticeLink = document.getElementById('linkLattice');
+  const latticeTitle = document.getElementById('latticeTitle');
+  if (latticeLink && latticeTitle) {
+    latticeLink.addEventListener('mouseenter', () => {
+      latticeTitle.textContent = 'Khám Phá Lattice OJ';
     });
-    ghLink.addEventListener('mouseleave', () => {
-      ghTitle.textContent = 'GitHub: phanvanhuy184';
+    latticeLink.addEventListener('mouseleave', () => {
+      latticeTitle.textContent = 'Lattice Online Judge';
     });
   }
 
