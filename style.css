@@ -1,0 +1,1407 @@
+/* ==========================================================================
+   Phan Văn Huy - Modern Bio & Portfolio Style System
+   Theme: Cyberpunk / Neon Anime Glassmorphism
+   ========================================================================== */
+
+:root {
+  /* Color Palette */
+  --bg-dark: #0a0814;
+  --card-bg: rgba(18, 14, 38, 0.72);
+  --card-bg-hover: rgba(26, 20, 52, 0.85);
+  --modal-bg: rgba(15, 12, 30, 0.88);
+  
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  
+  --neon-cyan: #38bdf8;
+  --neon-blue: #3b82f6;
+  --neon-purple: #a855f7;
+  --neon-pink: #ec4899;
+  --neon-gold: #f59e0b;
+  --neon-green: #10b981;
+  
+  --border-light: rgba(255, 255, 255, 0.12);
+  --border-hover: rgba(255, 255, 255, 0.28);
+  --glass-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+  
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --radius-card: 26px;
+  --radius-btn: 16px;
+  --radius-modal: 24px;
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-dark);
+  background-image: 
+    radial-gradient(ellipse at 50% 20%, rgba(138, 43, 226, 0.15) 0%, rgba(10, 8, 20, 0.6) 80%),
+    url('assets/image/anh_nen.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+  padding: 1.5rem 1rem;
+}
+
+/* Particle Canvas (Subtle Floating Stars/Glow) */
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Top Controls (Music Player)
+   ========================================================================== */
+.top-controls {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 50;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(20, 16, 42, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.control-btn:hover {
+  background: rgba(30, 24, 60, 0.85);
+  color: #fff;
+  border-color: var(--neon-cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
+}
+
+.music-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.music-bars .bar {
+  width: 3px;
+  background: var(--neon-cyan);
+  border-radius: 2px;
+  height: 4px;
+  transition: height 0.2s ease;
+}
+
+/* Animation when playing */
+.control-btn.playing .music-bars .bar-1 { animation: soundWave 0.7s infinite alternate ease-in-out; }
+.control-btn.playing .music-bars .bar-2 { animation: soundWave 0.9s infinite 0.2s alternate ease-in-out; }
+.control-btn.playing .music-bars .bar-3 { animation: soundWave 0.6s infinite 0.4s alternate ease-in-out; }
+.control-btn.playing .music-bars .bar-4 { animation: soundWave 0.8s infinite 0.1s alternate ease-in-out; }
+
+@keyframes soundWave {
+  0% { height: 4px; }
+  100% { height: 14px; }
+}
+
+/* ==========================================================================
+   Main Profile Card
+   ========================================================================== */
+.profile-card-container {
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  z-index: 10;
+  margin: auto;
+}
+
+.profile-card {
+  position: relative;
+  background: var(--card-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: 2.2rem 1.6rem 1.8rem;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(168, 85, 247, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.profile-card:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.7),
+    0 0 50px rgba(168, 85, 247, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+}
+
+/* Ambient Top Accent Light */
+.card-glow {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(56, 189, 248, 0.15) 50%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================================================
+   Profile Header & Avatar
+   ========================================================================== */
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 1.6rem;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 124px;
+  height: 124px;
+  margin-bottom: 1.1rem;
+}
+
+/* Outer Rotating Gradient Ring */
+.avatar-ring-outer {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #38bdf8, #818cf8, #c084fc, #f43f5e, #38bdf8);
+  animation: rotateRing 8s linear infinite;
+  filter: blur(1.5px);
+  opacity: 0.9;
+}
+
+@keyframes rotateRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Inner Mask & Avatar */
+.avatar-ring-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #0f0c22;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  background: #110e24;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.avatar-wrapper:hover .avatar-img {
+  transform: scale(1.08);
+}
+
+/* Pulsing Online Status Indicator */
+.status-indicator {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  background: #0f0c22;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.pulse-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--neon-green);
+  position: relative;
+}
+
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--neon-green);
+  animation: pulseScale 1.8s infinite ease-out;
+}
+
+@keyframes pulseScale {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Profile Name */
+.profile-name {
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #38bdf8;
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.6));
+}
+
+.verified-badge svg {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-role {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+}
+
+.role-icon {
+  font-size: 0.95rem;
+}
+
+/* Tag Chips */
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  justify-content: center;
+}
+
+.chip {
+  font-size: 0.73rem;
+  font-weight: 600;
+  padding: 0.28rem 0.68rem;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(8px);
+}
+
+.chip-blue {
+  background: rgba(56, 189, 248, 0.14);
+  color: #7dd3fc;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.chip-purple {
+  background: rgba(168, 85, 247, 0.14);
+  color: #d8b4fe;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+}
+
+.chip-gold {
+  background: rgba(245, 158, 11, 0.14);
+  color: #fde68a;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+/* ==========================================================================
+   Links Section (Action Buttons)
+   ========================================================================== */
+.links-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  position: relative;
+  z-index: 2;
+}
+
+.link-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  padding: 0.85rem 1.1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-btn);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-family: var(--font-main);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-align: left;
+}
+
+/* Light Sweep Hover Effect */
+.link-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.link-card:hover::before {
+  left: 100%;
+}
+
+.link-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.link-card:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* Specific Link Theme Accents */
+
+/* 1. Giới Thiệu */
+.link-intro {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(147, 51, 234, 0.12));
+  border-color: rgba(99, 102, 241, 0.3);
+}
+.link-intro:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.28), rgba(147, 51, 234, 0.24));
+  border-color: rgba(129, 140, 248, 0.6);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+}
+.intro-icon-box {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: #fff;
+}
+
+/* 2. Zalo */
+.link-zalo {
+  background: linear-gradient(135deg, rgba(0, 104, 255, 0.12), rgba(0, 164, 255, 0.08));
+  border-color: rgba(0, 136, 255, 0.25);
+}
+.link-zalo:hover {
+  background: linear-gradient(135deg, rgba(0, 104, 255, 0.25), rgba(0, 164, 255, 0.18));
+  border-color: rgba(0, 164, 255, 0.6);
+  box-shadow: 0 10px 25px rgba(0, 136, 255, 0.22);
+}
+.zalo-icon-box {
+  background: #0068ff;
+}
+
+/* 3. Facebook */
+.link-facebook {
+  background: linear-gradient(135deg, rgba(24, 119, 242, 0.12), rgba(14, 80, 170, 0.08));
+  border-color: rgba(24, 119, 242, 0.25);
+}
+.link-facebook:hover {
+  background: linear-gradient(135deg, rgba(24, 119, 242, 0.25), rgba(14, 80, 170, 0.18));
+  border-color: rgba(66, 153, 225, 0.6);
+  box-shadow: 0 10px 25px rgba(24, 119, 242, 0.22);
+}
+.fb-icon-box {
+  background: #1877f2;
+}
+
+/* 4. GitHub */
+.link-github {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(40, 44, 52, 0.2));
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.link-github:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(60, 64, 75, 0.3));
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+}
+.github-icon-box {
+  background: #24292e;
+}
+
+/* 5. Sản Phẩm / Thành Tích */
+.link-products {
+  background: linear-gradient(135deg, rgba(217, 70, 239, 0.14), rgba(244, 63, 94, 0.12));
+  border-color: rgba(236, 72, 153, 0.3);
+}
+.link-products:hover {
+  background: linear-gradient(135deg, rgba(217, 70, 239, 0.26), rgba(244, 63, 94, 0.22));
+  border-color: rgba(244, 114, 182, 0.6);
+  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.25);
+}
+.products-icon-box {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+}
+
+/* 6. Bank / Vietcombank */
+.link-bank {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.13), rgba(6, 182, 212, 0.1));
+  border-color: rgba(16, 185, 129, 0.3);
+}
+.link-bank:hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(6, 182, 212, 0.2));
+  border-color: rgba(52, 211, 153, 0.6);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.22);
+}
+.bank-icon-box {
+  background: #007042;
+}
+
+/* Icon Container */
+.link-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.link-card:hover .link-icon-box {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+.link-icon-box svg {
+  width: 22px;
+  height: 22px;
+}
+
+.btn-icon-img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+/* Link Info Text */
+.link-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex-grow: 1;
+}
+
+.link-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.link-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Action Icons / Badges on right */
+.link-action-icon {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.link-action-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.link-card:hover .link-action-icon {
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.badge-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.28rem 0.65rem;
+  border-radius: 8px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.pill-blue {
+  background: rgba(0, 104, 255, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.pill-gold {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.pill-teal {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.profile-footer {
+  margin-top: 1.8rem;
+  text-align: center;
+  border-top: 1px solid var(--border-light);
+  padding-top: 1.2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-text {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.footer-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Modals (Glassmorphism Modal System)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 6, 20, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-container {
+  width: 100%;
+  max-width: 500px;
+  max-height: 85vh;
+  background: var(--modal-bg);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-modal);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.8),
+    0 0 50px rgba(124, 58, 237, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.92) translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal-container {
+  transform: scale(1) translateY(0);
+}
+
+.modal-container.modal-large {
+  max-width: 580px;
+}
+
+.modal-container.modal-small {
+  max-width: 400px;
+}
+
+/* Modal Header */
+.modal-header {
+  padding: 1.25rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.modal-title-wrap h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.modal-icon {
+  font-size: 1.3rem;
+}
+
+.modal-header-icon-img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.modal-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.modal-close-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 1.4rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.text-center {
+  text-align: center;
+  align-items: center;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   Modal 1: Intro / About Me Content
+   ========================================================================== */
+.intro-profile-snippet {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+}
+
+.snippet-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--neon-cyan);
+}
+
+.snippet-info h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+
+.snippet-info p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.info-item {
+  display: flex;
+  gap: 0.85rem;
+  padding: 0.95rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+}
+
+.info-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.info-content strong {
+  display: block;
+  font-size: 0.92rem;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.info-content p {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.intro-contact-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.contact-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition-smooth);
+}
+
+.contact-action-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.btn-fb {
+  background: #1877f2;
+  color: #fff;
+}
+.btn-fb:hover {
+  background: #0e65d9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(24, 119, 242, 0.35);
+}
+
+.btn-zl {
+  background: #0068ff;
+  color: #fff;
+}
+.btn-zl:hover {
+  background: #0056d6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 104, 255, 0.35);
+}
+
+/* ==========================================================================
+   Modal 2: Achievements (Sản Phẩm) Content
+   ========================================================================== */
+.modal-intro-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.2rem;
+}
+
+.achievements-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.timeline-card {
+  display: flex;
+  gap: 0.9rem;
+  padding: 0.95rem 1.1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.timeline-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateX(4px);
+}
+
+.timeline-card.highlight-gold {
+  border-left: 3px solid var(--neon-gold);
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.timeline-card.highlight-purple {
+  border-left: 3px solid var(--neon-purple);
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.timeline-card.highlight-blue {
+  border-left: 3px solid var(--neon-cyan);
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.timeline-badge {
+  font-size: 1.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex-grow: 1;
+}
+
+.timeline-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.timeline-title {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.timeline-year {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.18rem 0.5rem;
+  border-radius: 6px;
+  color: var(--text-secondary);
+}
+
+.timeline-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.news-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--neon-cyan);
+  text-decoration: none;
+  margin-top: 0.35rem;
+  transition: color 0.2s ease;
+}
+
+.news-link-btn:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.news-link-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* GPA Box */
+.gpa-box {
+  margin-top: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 1.1rem;
+}
+
+.gpa-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.gpa-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+
+.gpa-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.7rem 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gpa-card.highlight {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.08);
+}
+
+.gpa-grade {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.gpa-score {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.gpa-card.highlight .gpa-score {
+  color: #fde047;
+}
+
+.gpa-scale {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   QR Code Display Frame
+   ========================================================================== */
+.qr-frame-box {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin: 0.5rem auto 0.8rem;
+}
+
+.qr-display-img {
+  display: block;
+  width: 230px;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.bank-qr-box {
+  padding: 8px;
+}
+
+.bank-qr-img {
+  width: 250px;
+  height: auto;
+  max-height: 380px;
+  border-radius: 8px;
+}
+
+/* Neon Corner Brackets */
+.qr-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--neon-cyan);
+  pointer-events: none;
+}
+
+.corner-tl { top: -2px; left: -2px; border-right: none; border-bottom: none; border-top-left-radius: 8px; }
+.corner-tr { top: -2px; right: -2px; border-left: none; border-bottom: none; border-top-right-radius: 8px; }
+.corner-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; border-bottom-left-radius: 8px; }
+.corner-br { bottom: -2px; right: -2px; border-left: none; border-top: none; border-bottom-right-radius: 8px; }
+
+.qr-guide-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-top: 0.4rem;
+}
+
+.qr-user-tag {
+  display: inline-block;
+  margin-top: 0.6rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ==========================================================================
+   Modal 4: Vietcombank Card & Copy
+   ========================================================================== */
+.digital-bank-card {
+  position: relative;
+  background: linear-gradient(135deg, #064e3b 0%, #022c22 60%, #011812 100%);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  border-radius: 18px;
+  padding: 1.2rem 1.4rem;
+  color: #fff;
+  text-align: left;
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(16, 185, 129, 0.2);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.bank-card-bg-glow {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.35) 0%, transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+.bank-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bank-chip {
+  width: 38px;
+  height: 28px;
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  border-radius: 6px;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+.bank-chip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.bank-logo-small {
+  height: 26px;
+  width: auto;
+  object-fit: contain;
+}
+
+.bank-card-number {
+  font-family: 'Courier New', monospace;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #f0fdf4;
+  margin: 0.2rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.bank-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 0.6rem;
+}
+
+.card-holder, .card-bank-name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.card-bank-name {
+  text-align: right;
+}
+
+.digital-bank-card .label {
+  font-size: 0.64rem;
+  color: #86efac;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.digital-bank-card .val {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+/* Copy STK Button */
+.copy-stk-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-main);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  margin-bottom: 0.8rem;
+}
+
+.copy-stk-btn:hover {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.45);
+}
+
+.copy-stk-btn:active {
+  transform: translateY(0);
+}
+
+.copy-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ==========================================================================
+   Toast Notification
+   ========================================================================== */
+.toast-notification {
+  position: fixed;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(120px);
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--neon-green);
+  border-radius: 9999px;
+  padding: 0.85rem 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(16, 185, 129, 0.35);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.toast-notification.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--neon-green);
+  color: #042f2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.toast-msg {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 520px) {
+  body {
+    padding: 1rem 0.6rem;
+  }
+
+  .profile-card {
+    padding: 1.8rem 1.2rem 1.4rem;
+    border-radius: 22px;
+  }
+
+  .avatar-wrapper {
+    width: 110px;
+    height: 110px;
+  }
+
+  .profile-name {
+    font-size: 1.45rem;
+  }
+
+  .profile-role {
+    font-size: 0.82rem;
+  }
+
+  .link-card {
+    padding: 0.75rem 0.9rem;
+    gap: 0.8rem;
+  }
+
+  .link-icon-box {
+    width: 38px;
+    height: 38px;
+  }
+
+  .btn-icon-img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .link-title {
+    font-size: 0.9rem;
+  }
+
+  .link-subtitle {
+    font-size: 0.74rem;
+  }
+
+  .badge-pill {
+    font-size: 0.68rem;
+    padding: 0.22rem 0.55rem;
+  }
+
+  .modal-overlay {
+    padding: 0.8rem;
+  }
+
+  .modal-container {
+    max-height: 90vh;
+  }
+
+  .modal-body {
+    padding: 1.1rem;
+  }
+
+  .intro-contact-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .qr-display-img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .bank-qr-img {
+    width: 210px;
+  }
+
+  .bank-card-number {
+    font-size: 1.2rem;
+    letter-spacing: 0.08em;
+  }
+}

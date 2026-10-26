@@ -1,12 +1,489 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="utf-8">
-  <title>Phan Văn Huy</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="assets/image/logo.png">
-<style>body{width:100%;display:flex;justify-content:center;align-items:center}body{margin:0;padding:0;background-image:url(anh_nen.a3d1dea57f169c555e77.jpg);background-repeat:no-repeat;background-size:cover;background-attachment:fixed;height:100vh}</style><link rel="stylesheet" href="styles.3f4e2da86feb99834a0a.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.3f4e2da86feb99834a0a.css"></noscript></head>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Phan Văn Huy | Bio & Contact</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Trang thông tin cá nhân của Phan Văn Huy - Sinh viên ngành Toán – Tin, Đại học Bách khoa Hà Nội (HUST). Dạy lập trình thi đấu C++, định hướng DA & DE.">
+  <meta name="keywords" content="Phan Văn Huy, WebBio, HUST, Toán Tin Bách Khoa, Lập trình C++, Tin học trẻ">
+  <meta name="author" content="Phan Văn Huy">
+  <meta property="og:title" content="Phan Văn Huy | Profile & Contact">
+  <meta property="og:description" content="Sinh viên Toán – Tin HUST • DA/DE • C++ Competitive Programming Mentor">
+  <meta property="og:image" content="assets/image/avatar.jpg">
+  <meta property="og:type" content="website">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/image/logo.png">
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  <app-root></app-root>
-<script src="runtime.e785f512714c7a211f7d.js" defer></script><script src="polyfills.707ddfe2ba8dc28f8c4d.js" defer></script><script src="main.425dfd04703fbf2ac4de.js" defer></script>
+  <!-- Ambient Particle Canvas -->
+  <canvas id="particleCanvas"></canvas>
 
-</body></html>
+  <!-- Sound Toggle Button -->
+  <div class="top-controls">
+    <button id="musicToggle" class="control-btn" title="Bật/Tắt nhạc chill" aria-label="Toggle ambient music">
+      <div class="music-bars">
+        <span class="bar bar-1"></span>
+        <span class="bar bar-2"></span>
+        <span class="bar bar-3"></span>
+        <span class="bar bar-4"></span>
+      </div>
+      <span class="music-label">Chill BGM</span>
+    </button>
+  </div>
+
+  <!-- Background Music Audio Element -->
+  <audio id="bgmAudio" loop preload="none">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Main Container -->
+  <main class="profile-card-container">
+    <div class="profile-card" id="profileCard">
+      <!-- Card Glow Layer -->
+      <div class="card-glow"></div>
+      
+      <!-- Profile Header -->
+      <header class="profile-header">
+        <div class="avatar-wrapper">
+          <div class="avatar-ring-outer"></div>
+          <div class="avatar-ring-inner">
+            <img src="assets/image/avatar.jpg" alt="Phan Văn Huy" class="avatar-img" id="avatarImg">
+          </div>
+          <span class="status-indicator" title="Đang trực tuyến • Sẵn sàng kết nối">
+            <span class="pulse-dot"></span>
+          </span>
+        </div>
+
+        <div class="name-container">
+          <h1 class="profile-name">
+            Phan Văn Huy
+            <span class="verified-badge" title="Đã xác minh">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </span>
+          </h1>
+          <p class="profile-role">
+            <span class="role-icon">🎓</span> Sinh viên Toán – Tin • Đại học Bách khoa Hà Nội
+          </p>
+        </div>
+
+        <!-- Tag Chips -->
+        <div class="tag-chips">
+          <span class="chip chip-blue">DA & DE</span>
+          <span class="chip chip-purple">C++ Algorithm</span>
+          <span class="chip chip-gold">Top 3 Olympic HUST</span>
+        </div>
+      </header>
+
+      <!-- Bio Links List -->
+      <section class="links-section">
+        <!-- 1. Giới Thiệu -->
+        <button class="link-card link-intro" id="btnIntro" data-modal="modalIntro">
+          <div class="link-icon-box intro-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="link-info">
+            <span class="link-title">Giới Thiệu Bản Thân</span>
+            <span class="link-subtitle">Định hướng DA & DE • Gia sư C++</span>
+          </div>
+          <div class="link-action-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+        </button>
+
+        <!-- 2. Zalo -->
+        <button class="link-card link-zalo" id="btnZalo" data-modal="modalZalo">
+          <div class="link-icon-box zalo-icon-box">
+            <img src="assets/image/zalo.webp" alt="Zalo" class="btn-icon-img">
+          </div>
+          <div class="link-info">
+            <span class="link-title" id="zaloTitle">Zalo</span>
+            <span class="link-subtitle">Quét mã QR kết nối nhanh</span>
+          </div>
+          <span class="badge-pill pill-blue">Mở QR</span>
+        </button>
+
+        <!-- 3. Facebook -->
+        <a href="https://www.facebook.com/HuyP1804/" target="_blank" rel="noopener noreferrer" class="link-card link-facebook" id="linkFacebook">
+          <div class="link-icon-box fb-icon-box">
+            <img src="assets/image/icon-facebook.png" alt="Facebook" class="btn-icon-img">
+          </div>
+          <div class="link-info">
+            <span class="link-title" id="fbTitle">Facebook</span>
+            <span class="link-subtitle">@HuyP1804 • Mạng xã hội chính</span>
+          </div>
+          <div class="link-action-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </div>
+        </a>
+
+        <!-- 4. GitHub -->
+        <a href="https://github.com/phanvanhuy184" target="_blank" rel="noopener noreferrer" class="link-card link-github" id="linkGithub">
+          <div class="link-icon-box github-icon-box">
+            <img src="assets/image/github.webp" alt="GitHub" class="btn-icon-img">
+          </div>
+          <div class="link-info">
+            <span class="link-title" id="ghTitle">GitHub</span>
+            <span class="link-subtitle">@phanvanhuy184 • Mã nguồn dự án</span>
+          </div>
+          <div class="link-action-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </div>
+        </a>
+
+        <!-- 5. Sản Phẩm & Thành Tích -->
+        <button class="link-card link-products" id="btnProducts" data-modal="modalProducts">
+          <div class="link-icon-box products-icon-box">
+            <img src="assets/image/coder.png" alt="Thành tích" class="btn-icon-img">
+          </div>
+          <div class="link-info">
+            <span class="link-title">Thành Tích & Sản Phẩm</span>
+            <span class="link-subtitle">Giải Nhất THT, Olympic HUST...</span>
+          </div>
+          <span class="badge-pill pill-gold">10+ Giải thưởng 🔥</span>
+        </button>
+
+        <!-- 6. Tài Khoản Ngân Hàng -->
+        <button class="link-card link-bank" id="btnBank" data-modal="modalBank">
+          <div class="link-icon-box bank-icon-box">
+            <img src="assets/image/Icon-Vietcombank.webp" alt="Vietcombank" class="btn-icon-img">
+          </div>
+          <div class="link-info">
+            <span class="link-title" id="bankTitle">Tài Khoản Vietcombank</span>
+            <span class="link-subtitle">STK: 1043458381 • PHAN VAN HUY</span>
+          </div>
+          <span class="badge-pill pill-teal">Mở QR / STK</span>
+        </button>
+      </section>
+
+      <!-- Footer Info -->
+      <footer class="profile-footer">
+        <p class="footer-text">© 2026 Phan Văn Huy • All Rights Reserved</p>
+        <p class="footer-sub">Thiết kế hiện đại & Tối ưu trải nghiệm</p>
+      </footer>
+    </div>
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. Modal Giới Thiệu -->
+  <div class="modal-overlay" id="modalIntro" aria-hidden="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">👋</span>
+          <h3>Giới Thiệu Bản Thân</h3>
+        </div>
+        <button class="modal-close-btn" data-close title="Đóng">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body custom-scrollbar">
+        <div class="intro-profile-snippet">
+          <img src="assets/image/avatar.jpg" alt="Phan Văn Huy" class="snippet-avatar">
+          <div class="snippet-info">
+            <h4>Phan Văn Huy</h4>
+            <p>Sinh viên Toán – Tin K67 • ĐH Bách khoa Hà Nội</p>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-item">
+            <div class="info-icon">🎓</div>
+            <div class="info-content">
+              <strong>Học vấn hiện tại</strong>
+              <p>Hi! Mình là Phan Văn Huy, hiện là sinh viên năm 3 ngành Toán – Tin tại Đại học Bách khoa Hà Nội (HUST).</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">💻</div>
+            <div class="info-content">
+              <strong>Chuyên môn & Định hướng</strong>
+              <p>Mình định hướng và tập trung phát triển sâu trong mảng <b>Data Analytics & Data Engineering (DA & DE)</b>. Đặc biệt, mình có niềm đam mê lớn với cấu trúc dữ liệu & giải thuật, luôn chủ động tự học và cập nhật kiến thức công nghệ mới.</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">🎯</div>
+            <div class="info-content">
+              <strong>Dạy kèm Lập trình thi đấu C++</strong>
+              <p>Hiện tại mình có nhận dạy lập trình thi đấu C++, phù hợp cho các bạn muốn:
+                <br>• Ôn thi Học sinh giỏi các cấp
+                <br>• Luyện thi vào lớp 10 chuyên Tin
+                <br>• Rèn luyện tư duy thuật toán & tối ưu hóa mã nguồn
+              </p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">🚀</div>
+            <div class="info-content">
+              <strong>Dịch vụ mạng xã hội</strong>
+              <p>Ngoài ra, mình có nhận hỗ trợ tương tác, buff like / follow Facebook uy tín nếu bạn có nhu cầu 🥰.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-contact-actions">
+          <a href="https://www.facebook.com/HuyP1804/" target="_blank" rel="noopener noreferrer" class="contact-action-btn btn-fb">
+            <img src="assets/image/icon-facebook.png" alt="FB"> Nhắn qua Facebook
+          </a>
+          <button class="contact-action-btn btn-zl" id="btnIntroToZalo">
+            <img src="assets/image/zalo.webp" alt="Zalo"> Mở mã QR Zalo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Modal Sản Phẩm & Thành Tích -->
+  <div class="modal-overlay" id="modalProducts" aria-hidden="true">
+    <div class="modal-container modal-large">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">🏆</span>
+          <h3>Thành Tích & Hoạt Động</h3>
+        </div>
+        <button class="modal-close-btn" data-close title="Đóng">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body custom-scrollbar">
+        <p class="modal-intro-text">
+          Những dấu ấn và thành tích tiêu biểu trong quá trình học tập & thi đấu Tin học:
+        </p>
+
+        <div class="achievements-timeline">
+          <!-- Item 1 -->
+          <div class="timeline-card highlight-gold">
+            <div class="timeline-badge">🥇</div>
+            <div class="timeline-content">
+              <div class="timeline-header-row">
+                <span class="timeline-title">Giải Nhất Tin Học Trẻ Tỉnh Nghệ An</span>
+                <span class="timeline-year">2022</span>
+              </div>
+              <p class="timeline-desc">Hội thi Tin học trẻ toàn quốc tỉnh Nghệ An lần thứ XXVIII năm 2022.</p>
+              <a href="http://c3levietthuat.nghean.vnedu.vn/hoc-sinh-truong-thpt-le-viet-thuat-dat-giai-nhat-hoi-thi-tin-hoc-tre-tinh-nghe-an-lan-thu-xxviii-nam-2022-173991.html" target="_blank" rel="noopener noreferrer" class="news-link-btn">
+                <span>Xem bài viết đưa tin</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="timeline-card highlight-purple">
+            <div class="timeline-badge">🥉</div>
+            <div class="timeline-content">
+              <div class="timeline-header-row">
+                <span class="timeline-title">Top 3 Olympic Tin Học HUST</span>
+                <span class="timeline-year">2023</span>
+              </div>
+              <p class="timeline-desc">Olympic Tin học bảng Không chuyên tại Đại học Bách khoa Hà Nội năm 2023.</p>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="timeline-card">
+            <div class="timeline-badge">🥈</div>
+            <div class="timeline-content">
+              <div class="timeline-header-row">
+                <span class="timeline-title">Giải Nhì HSG Tỉnh Nghệ An Lớp 12</span>
+                <span class="timeline-year">2022 - 2023</span>
+              </div>
+              <p class="timeline-desc">Kỳ thi Học sinh giỏi môn Tin học cấp tỉnh lớp 12 Nghệ An.</p>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="timeline-card">
+            <div class="timeline-badge">🎖️</div>
+            <div class="timeline-content">
+              <div class="timeline-header-row">
+                <span class="timeline-title">Top 9 Tin Học Trẻ Vòng Khu Vực</span>
+                <span class="timeline-year">2022</span>
+              </div>
+              <p class="timeline-desc">Vòng thi khu vực miền Trung - Hội thi Tin học trẻ toàn quốc.</p>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="timeline-card highlight-blue">
+            <div class="timeline-badge">📚</div>
+            <div class="timeline-content">
+              <div class="timeline-header-row">
+                <span class="timeline-title">Học Sinh 3 Tốt Cấp Tỉnh Nghệ An</span>
+                <span class="timeline-year">2022 - 2023</span>
+              </div>
+              <p class="timeline-desc">Đạt danh hiệu Học sinh 3 Tốt cấp tỉnh - Gương mặt xuất sắc THPT Lê Viết Thuật.</p>
+              <a href="http://c3levietthuat.nghean.vnedu.vn/2-guong-mat-xuat-sac-cua-truong-thpt-le-viet-thuat-duoc-tuyen-duong-hoc-sinh-3-tot-cap-tinh-177361.html" target="_blank" rel="noopener noreferrer" class="news-link-btn">
+                <span>Xem bài tuyên dương</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="timeline-card">
+            <div class="timeline-badge">📝</div>
+            <div class="timeline-content">
+              <div class="timeline-header-row">
+                <span class="timeline-title">Chọn Đội Tuyển HSG Quốc Gia</span>
+                <span class="timeline-year">2022 - 2023</span>
+              </div>
+              <p class="timeline-desc">Tham gia kỳ thi chọn đội tuyển HSG Quốc Gia tỉnh Nghệ An.</p>
+            </div>
+          </div>
+
+          <!-- Item 7 -->
+          <div class="timeline-card">
+            <div class="timeline-badge">🧪</div>
+            <div class="timeline-content">
+              <div class="timeline-header-row">
+                <span class="timeline-title">Kỳ Thi KHKT Cấp Thành Phố</span>
+                <span class="timeline-year">Lớp 9</span>
+              </div>
+              <p class="timeline-desc">Tham gia cuộc thi Khoa học Kỹ thuật dành cho học sinh THCS.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- GPA Box -->
+        <div class="gpa-box">
+          <div class="gpa-title">
+            <span>📊</span> Điểm Tổng Kết Môn Tin Học Cấp 3
+          </div>
+          <div class="gpa-grid">
+            <div class="gpa-card">
+              <span class="gpa-grade">Lớp 10</span>
+              <span class="gpa-score">9.7</span>
+              <span class="gpa-scale">/10</span>
+            </div>
+            <div class="gpa-card highlight">
+              <span class="gpa-grade">Lớp 11</span>
+              <span class="gpa-score">10.0</span>
+              <span class="gpa-scale">/10</span>
+            </div>
+            <div class="gpa-card">
+              <span class="gpa-grade">Lớp 12</span>
+              <span class="gpa-score">9.9</span>
+              <span class="gpa-scale">/10</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Modal Zalo QR -->
+  <div class="modal-overlay" id="modalZalo" aria-hidden="true">
+    <div class="modal-container modal-small">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <img src="assets/image/zalo.webp" alt="Zalo" class="modal-header-icon-img">
+          <h3>Kết Nối Zalo</h3>
+        </div>
+        <button class="modal-close-btn" data-close title="Đóng">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body text-center">
+        <div class="qr-frame-box">
+          <div class="qr-corner corner-tl"></div>
+          <div class="qr-corner corner-tr"></div>
+          <div class="qr-corner corner-bl"></div>
+          <div class="qr-corner corner-br"></div>
+          <img src="assets/image/ZaloQR.jpg" alt="Mã QR Zalo Phan Văn Huy" class="qr-display-img">
+        </div>
+        <p class="qr-guide-text">Mở ứng dụng Zalo và quét mã trên để kết bạn & nhắn tin trực tiếp</p>
+        <div class="qr-user-tag">
+          <span>👤 Huy Phan</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Modal Vietcombank QR & STK -->
+  <div class="modal-overlay" id="modalBank" aria-hidden="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <img src="assets/image/Icon-Vietcombank.webp" alt="Vietcombank" class="modal-header-icon-img">
+          <h3>Tài Khoản Vietcombank</h3>
+        </div>
+        <button class="modal-close-btn" data-close title="Đóng">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body custom-scrollbar text-center">
+        <!-- Digital Bank Card Mockup -->
+        <div class="digital-bank-card">
+          <div class="bank-card-bg-glow"></div>
+          <div class="bank-card-header">
+            <span class="bank-chip"></span>
+            <img src="assets/image/Icon-Vietcombank.webp" alt="Vietcombank" class="bank-logo-small">
+          </div>
+          <div class="bank-card-number" id="cardNumberDisplay">1043 4583 81</div>
+          <div class="bank-card-footer">
+            <div class="card-holder">
+              <span class="label">CHỦ TÀI KHOẢN</span>
+              <span class="val">PHAN VAN HUY</span>
+            </div>
+            <div class="card-bank-name">
+              <span class="label">NGÂN HÀNG</span>
+              <span class="val">VIETCOMBANK</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Copy Action Button -->
+        <button class="copy-stk-btn" id="btnCopySTK" data-stk="1043458381">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="copy-icon">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span id="copyBtnText">Sao chép số tài khoản (1043458381)</span>
+        </button>
+
+        <!-- Bank QR Code -->
+        <div class="qr-frame-box bank-qr-box">
+          <div class="qr-corner corner-tl"></div>
+          <div class="qr-corner corner-tr"></div>
+          <div class="qr-corner corner-bl"></div>
+          <div class="qr-corner corner-br"></div>
+          <img src="assets/image/VietcombankQR.jpg" alt="Mã QR Vietcombank" class="qr-display-img bank-qr-img">
+        </div>
+        <p class="qr-guide-text">Hỗ trợ chuyển khoản nhanh 24/7 qua Napas 247 & VietQR</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="toast">
+    <div class="toast-icon">✓</div>
+    <div class="toast-msg" id="toastMsg">Đã sao chép thành công!</div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
