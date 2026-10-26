@@ -1,28 +1,27 @@
 /**
- * Phan Văn Huy - WebBio Interactivity & Visual Effects
+ * Phan Văn Huy - WebBio Interactivity & Visual Effects (Bento Grid Edition)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initHoverEffects();
   initModals();
-  initCopySTK();
   initParticleCanvas();
   initMusicPlayer();
   initCard3DTilt();
 });
 
 /* ==========================================================================
-   1. Interactive Hover Text (Preserves & Enhances Original Logic)
+   1. Interactive Hover Text
    ========================================================================== */
 function initHoverEffects() {
   const zaloBtn = document.getElementById('btnZalo');
   const zaloTitle = document.getElementById('zaloTitle');
   if (zaloBtn && zaloTitle) {
     zaloBtn.addEventListener('mouseenter', () => {
-      zaloTitle.textContent = 'Huy Phan';
+      zaloTitle.textContent = 'Zalo: Huy Phan';
     });
     zaloBtn.addEventListener('mouseleave', () => {
-      zaloTitle.textContent = 'Zalo';
+      zaloTitle.textContent = 'Zalo: Huy Phan';
     });
   }
 
@@ -30,10 +29,10 @@ function initHoverEffects() {
   const fbTitle = document.getElementById('fbTitle');
   if (fbLink && fbTitle) {
     fbLink.addEventListener('mouseenter', () => {
-      fbTitle.textContent = 'Huy Phan';
+      fbTitle.textContent = 'Facebook: Huy Phan';
     });
     fbLink.addEventListener('mouseleave', () => {
-      fbTitle.textContent = 'Facebook';
+      fbTitle.textContent = 'Facebook: Huy Phan';
     });
   }
 
@@ -41,21 +40,21 @@ function initHoverEffects() {
   const ghTitle = document.getElementById('ghTitle');
   if (ghLink && ghTitle) {
     ghLink.addEventListener('mouseenter', () => {
-      ghTitle.textContent = 'Huy Phan Van';
+      ghTitle.textContent = 'GitHub: phanvanhuy184';
     });
     ghLink.addEventListener('mouseleave', () => {
-      ghTitle.textContent = 'GitHub';
+      ghTitle.textContent = 'GitHub: phanvanhuy184';
     });
   }
 
-  const bankBtn = document.getElementById('btnBank');
-  const bankTitle = document.getElementById('bankTitle');
-  if (bankBtn && bankTitle) {
-    bankBtn.addEventListener('mouseenter', () => {
-      bankTitle.textContent = 'STK: 1043458381';
+  const dcLink = document.getElementById('linkDiscord');
+  const dcTitle = document.getElementById('discordTitle');
+  if (dcLink && dcTitle) {
+    dcLink.addEventListener('mouseenter', () => {
+      dcTitle.textContent = 'Tham Gia Discord';
     });
-    bankBtn.addEventListener('mouseleave', () => {
-      bankTitle.textContent = 'Tài Khoản Vietcombank';
+    dcLink.addEventListener('mouseleave', () => {
+      dcTitle.textContent = 'Discord Server';
     });
   }
 }
@@ -135,62 +134,7 @@ function closeModal(modal) {
 }
 
 /* ==========================================================================
-   3. Copy STK & Toast Notification
-   ========================================================================== */
-function initCopySTK() {
-  const btnCopy = document.getElementById('btnCopySTK');
-  const copyBtnText = document.getElementById('copyBtnText');
-  const toast = document.getElementById('toast');
-  const toastMsg = document.getElementById('toastMsg');
-
-  if (!btnCopy) return;
-
-  btnCopy.addEventListener('click', async () => {
-    const stk = btnCopy.getAttribute('data-stk') || '1043458381';
-    
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(stk);
-      } else {
-        // Fallback for non-https or older browser
-        const tempInput = document.createElement('input');
-        tempInput.value = stk;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempInput);
-      }
-
-      // Button feedback
-      const originalText = copyBtnText.textContent;
-      copyBtnText.textContent = '✓ Đã sao chép STK thành công!';
-      btnCopy.style.background = 'linear-gradient(135deg, #059669 0%, #047857 100%)';
-      
-      showToast(`Đã sao chép STK: ${stk} (Vietcombank)`);
-
-      setTimeout(() => {
-        copyBtnText.textContent = originalText;
-        btnCopy.style.background = '';
-      }, 2500);
-
-    } catch (err) {
-      showToast('Không thể sao chép, vui lòng nhập thủ công: ' + stk);
-    }
-  });
-
-  function showToast(message) {
-    if (!toast) return;
-    toastMsg.textContent = message;
-    toast.classList.add('show');
-    
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3000);
-  }
-}
-
-/* ==========================================================================
-   4. Ambient Star/Particle Canvas
+   3. Ambient Star/Particle Canvas
    ========================================================================== */
 function initParticleCanvas() {
   const canvas = document.getElementById('particleCanvas');
@@ -205,13 +149,13 @@ function initParticleCanvas() {
     height = canvas.height = window.innerHeight;
   });
 
-  // Particle generation
-  const particleCount = Math.min(Math.floor((width * height) / 18000), 55);
+  const particleCount = Math.min(Math.floor((width * height) / 16000), 65);
   const particles = [];
   const colors = [
     'rgba(56, 189, 248, ',   // cyan
     'rgba(168, 85, 247, ',  // purple
     'rgba(244, 63, 94, ',   // pink
+    'rgba(88, 101, 242, ',  // discord blurple
     'rgba(255, 255, 255, '  // pure white star
   ];
 
@@ -223,7 +167,7 @@ function initParticleCanvas() {
       color: colors[Math.floor(Math.random() * colors.length)],
       alpha: Math.random() * 0.7 + 0.2,
       vx: (Math.random() - 0.5) * 0.35,
-      vy: -(Math.random() * 0.45 + 0.2), // gentle upward float
+      vy: -(Math.random() * 0.45 + 0.2), // upward float
       pulsing: Math.random() * 0.02 + 0.008
     });
   }
@@ -241,7 +185,6 @@ function initParticleCanvas() {
       p.x += p.vx;
       p.y += p.vy;
 
-      // Wrap around edges
       if (p.y < -10) {
         p.y = height + 10;
         p.x = Math.random() * width;
@@ -249,7 +192,6 @@ function initParticleCanvas() {
       if (p.x < -10) p.x = width + 10;
       if (p.x > width + 10) p.x = -10;
 
-      // Draw particle with soft glow
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fillStyle = p.color + p.alpha + ')';
@@ -265,14 +207,14 @@ function initParticleCanvas() {
 }
 
 /* ==========================================================================
-   5. Background Music Toggle
+   4. Background Music Toggle
    ========================================================================== */
 function initMusicPlayer() {
   const musicToggle = document.getElementById('musicToggle');
   const bgmAudio = document.getElementById('bgmAudio');
   if (!musicToggle || !bgmAudio) return;
 
-  bgmAudio.volume = 0.35; // gentle ambient level
+  bgmAudio.volume = 0.35;
 
   musicToggle.addEventListener('click', () => {
     if (bgmAudio.paused) {
@@ -291,29 +233,26 @@ function initMusicPlayer() {
 }
 
 /* ==========================================================================
-   6. 3D Perspective Tilt on Card (Desktop Only)
+   5. 3D Perspective Tilt on Hero Card (Desktop Only)
    ========================================================================== */
 function initCard3DTilt() {
-  if (window.matchMedia('(pointer: coarse)').matches) return; // Skip on mobile touch
+  if (window.matchMedia('(pointer: coarse)').matches) return;
 
-  const card = document.getElementById('profileCard');
-  if (!card) return;
+  const heroCard = document.getElementById('heroCard');
+  if (!heroCard) return;
 
-  const container = document.querySelector('.profile-card-container');
-  if (!container) return;
-
-  container.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
+  heroCard.addEventListener('mousemove', (e) => {
+    const rect = heroCard.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
 
-    const rotX = (-y / (rect.height / 2)) * 6; // Max 6 deg
-    const rotY = (x / (rect.width / 2)) * 6;
+    const rotX = (-y / (rect.height / 2)) * 4;
+    const rotY = (x / (rect.width / 2)) * 4;
 
-    card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+    heroCard.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
   });
 
-  container.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+  heroCard.addEventListener('mouseleave', () => {
+    heroCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
   });
 }
