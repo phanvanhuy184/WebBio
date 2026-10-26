@@ -29,23 +29,6 @@
   <!-- Ambient Particle Canvas -->
   <canvas id="particleCanvas"></canvas>
 
-  <!-- Top Navigation Controls -->
-  <div class="top-controls">
-    <div class="status-badge" title="Đang trực tuyến • Sẵn sàng kết nối">
-      <span class="pulse-dot"></span>
-      <span class="status-text">Available for mentoring</span>
-    </div>
-    <button id="musicToggle" class="control-btn" title="Bật/Tắt nhạc chill" aria-label="Toggle ambient music">
-      <div class="music-bars">
-        <span class="bar bar-1"></span>
-        <span class="bar bar-2"></span>
-        <span class="bar bar-3"></span>
-        <span class="bar bar-4"></span>
-      </div>
-      <span class="music-label">Chill BGM</span>
-    </button>
-  </div>
-
   <!-- Background Music Audio Element -->
   <audio id="bgmAudio" loop preload="none">
     <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mp3">
@@ -53,15 +36,28 @@
 
   <!-- Main Bento Container -->
   <main class="bento-container">
-    <!-- Hero Header Card -->
-    <header class="bento-card hero-card" id="heroCard">
+    <!-- Hero Header Card (Chỉ giữ Tên, Trực tuyến, Nhạc) -->
+    <header class="bento-card hero-card minimal-hero" id="heroCard">
       <div class="hero-glow"></div>
       
-      <div class="hero-content">
-        <div class="hero-badge-wrap">
-          <span class="hero-tag">HUST • TOÁN – TIN</span>
+      <div class="hero-header-row">
+        <div class="status-badge" title="Đang trực tuyến">
+          <span class="pulse-dot"></span>
+          <span class="status-text">Đang trực tuyến</span>
         </div>
 
+        <button id="musicToggle" class="control-btn" title="Bật/Tắt nhạc chill" aria-label="Toggle ambient music">
+          <div class="music-bars">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+            <span class="bar bar-3"></span>
+            <span class="bar bar-4"></span>
+          </div>
+          <span class="music-label">Chill BGM</span>
+        </button>
+      </div>
+
+      <div class="hero-name-wrap">
         <h1 class="hero-name">
           Phan Văn Huy
           <span class="verified-badge" title="Đã xác minh">
@@ -70,21 +66,6 @@
             </svg>
           </span>
         </h1>
-
-        <p class="hero-role">
-          <span class="role-icon">🎓</span> Sinh viên ngành Toán – Tin • Đại học Bách khoa Hà Nội
-        </p>
-
-        <p class="hero-bio">
-          Đam mê <b>Cấu trúc dữ liệu & Thuật toán</b>, tập trung chuyên sâu mảng <b>Data Analytics & Data Engineering (DA/DE)</b> và huấn luyện lập trình thi đấu C++.
-        </p>
-
-        <!-- Tag Chips -->
-        <div class="tag-chips">
-          <span class="chip chip-blue">DA & DE</span>
-          <span class="chip chip-purple">C++ Competitive Programming</span>
-          <span class="chip chip-gold">Top 3 Olympic HUST</span>
-        </div>
       </div>
     </header>
 
